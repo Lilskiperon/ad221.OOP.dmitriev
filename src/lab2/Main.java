@@ -7,20 +7,22 @@ public class Main{
 
         // Заповнюємо кошик об'єктами класу Item
         Item item1 = new Item("Молоко", 100);
-        Item item2 = new Item("Хліб", 200);
+        Item item2 = new Item("Хліб", 25);
         Item item3 = new Item("Мука", 150);
         Item item4 = new Item("Риба", 300);
-        Item item5 = new Item("Сухарики", 25);
+        Item item5 = new Item("Сухарики", 50);
+        Item item6 = new Item("М'ясо", 250);
 
         cart.addItem(item1);
         cart.addItem(item2);
         cart.addItem(item3);
         cart.addItem(item4);
         cart.addItem(item5);
+        cart.addItem(item6);
 
         // Виводимо суму цін товарів усередині кошика
-        float totalBeforeIncrease = cart.calculateTotalPrice();
-        System.out.println("Сума цін товарів у кошику: " + totalBeforeIncrease);
+        float totalPrices = cart.calculateTotalPrice();
+        System.out.println("Сума цін товарів у кошику: " + totalPrices);
 
         // Піднімаємо ціни в кошику на 15%
         cart.increasePrices(15);
@@ -125,5 +127,4 @@ public class Main{
     }
 
 }
-
 
