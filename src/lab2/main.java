@@ -1,12 +1,48 @@
 package lab2;
+import java.util.LinkedList;
+import java.util.Queue;
+public class Main{
+    public static void main(String[] args) {
+        Cart cart = new Cart();
 
-public class main {
-    public class Item {
-        private final String name; // найменування товару
+        // Заповнюємо кошик об'єктами класу Item
+        Item item1 = new Item("Молоко", 100);
+        Item item2 = new Item("Хліб", 200);
+        Item item3 = new Item("Мука", 150);
+        Item item4 = new Item("Риба", 300);
+        Item item5 = new Item("Сухарики", 25);
+
+        cart.addItem(item1);
+        cart.addItem(item2);
+        cart.addItem(item3);
+        cart.addItem(item4);
+        cart.addItem(item5);
+
+        // Виводимо суму цін товарів усередині кошика
+        float totalBeforeIncrease = cart.calculateTotalPrice();
+        System.out.println("Сума цін товарів у кошику: " + totalBeforeIncrease);
+
+        // Піднімаємо ціни в кошику на 15%
+        cart.increasePrices(15);
+
+        // Виводимо змінену суму цін на консоль
+        float totalAfterIncrease = cart.calculateTotalPrice();
+        System.out.println("Сума цін товарів у кошику після підвищення: " + totalAfterIncrease);
+
+        // Знижуємо ціни в кошику на 30%
+        cart.decreasePrices(30);
+
+        // Виводимо змінену суму цін на консоль
+        float totalAfterDecrease = cart.calculateTotalPrice();
+        System.out.println("Сума цін товарів у кошику після зниження: " + totalAfterDecrease);
+
+    }
+    public static class Item {
+        private String name; // найменування товару
         private float price; // ціна товару
 
-        // Конструктор класу "Товар" з параметрами
-        public Item(String name, float price) {
+
+        public Item(String name, float price) { // Конструктор класу "Товар"
             this.name = name;
             if (price < 0) {
                 this.price = 0; // Якщо передана від'ємна ціна, встановлюємо 0
@@ -15,14 +51,14 @@ public class main {
             }
         }
 
-        // Метод для підвищення ціни на певний відсоток
+        // Підвищення ціни на певний відсоток
         public void increasePrice(float percent) {
             if (percent > 0) {
                 price += (price * percent / 100);
             }
         }
 
-        // Метод для зниження ціни на певний відсоток
+        // Зниження ціни на певний відсоток
         public void decreasePrice(float percent) {
             if (percent > 0) {
                 price -= (price * percent / 100);
@@ -32,73 +68,62 @@ public class main {
             }
         }
 
-        // для отримання найменування товару
+        // Отримання найменування товару
         public String getName() {
             return name;
         }
 
-        // для отримання ціни товару
+        // Отримання ціни товару
         public float getPrice() {
             return price;
         }
     }
-    public class Cart {
-        private Item[] stack; // Масив для реалізації стеку
-        private int top; // Індекс верхнього елементу стеку
-        private int maxSize; // Максимальна кількість елементів у стеку
+    public static class Cart {
+        private Queue<Item> queue; // Використовуємо чергу для зберігання товарів
 
-        // Конструктор класу "Кошик" з параметром максимальної кількості елементів у стеку
-        public Cart(int maxSize) {
-            this.maxSize = maxSize;
-            this.stack = new Item[maxSize];
-            this.top = -1; // Початково стек порожній
+        // Конструктор класу "Кошик" з параметром максимальної кількості елементів у черзі
+        public Cart() {
+            this.queue = new LinkedList<>();
         }
 
-        // Метод для додавання товару до стеку
+        // Додавання товару до черги (кошика)
         public void addItem(Item item) {
-            if (top < maxSize - 1) {
-                top++;
-                stack[top] = item;
-            } else {
-                System.out.println("Помилка: Кошик переповнений");
-            }
+            queue.offer(item); // Додаємо товар в кінець черги
         }
 
-        // Метод для видалення товару зі стеку
+        // Видалення товару з початку черги (кошика)
         public void removeItem() {
-            if (top >= 0) {
-                top--;
+            if (!queue.isEmpty()) {
+                queue.poll(); // Видаляємо перший елемент (перший доданий товар)
             } else {
                 System.out.println("Помилка: Кошик порожній");
             }
         }
 
-        // Метод для підрахунку суми цін товарів у кошику
+        // Підрахунку суми цін товарів у кошику
         public float calculateTotalPrice() {
             float total = 0;
-            for (int i = 0; i <= top; i++) {
-                total += stack[i].getPrice();
+            for (Item item : queue) {
+                total += item.getPrice();
             }
             return total;
         }
 
-        // Метод для підвищення цін усіх товарів у стеку на певний відсоток
+        // Підвищення цін усіх товарів у кошику на певний відсоток
         public void increasePrices(float percent) {
-            for (int i = 0; i <= top; i++) {
-                stack[i].increasePrice(percent);
+            for (Item item : queue) {
+                item.increasePrice(percent);
             }
         }
 
-        // Метод для зниження цін усіх товарів у стеку на певний відсоток
+        // Зниження цін усіх товарів у кошику на певний відсоток
         public void decreasePrices(float percent) {
-            for (int i = 0; i <= top; i++) {
-                stack[i].decreasePrice(percent);
+            for (Item item : queue) {
+                item.decreasePrice(percent);
             }
         }
     }
 
-
-
-
 }
+
 
