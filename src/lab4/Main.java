@@ -17,7 +17,7 @@ public class Main {
 
         regularCustomerBill.printBill();
 
-        UsualBill loyalCustomerBill = new UsualBill();
+        usualBill loyalCustomerBill = new usualBill();
         System.out.println("Звичайний клієнт:");
         // Товари до рахунку зі знижками
         loyalCustomerBill.addItem(new Item("Краби", 100.0, 15.0));
@@ -56,7 +56,7 @@ public class Main {
         }
     }
 
-    public static class UsualBill extends regularBill{
+    public static class usualBill extends regularBill{
         public void addItem(Item item){
             items.add(new Item(item.getName(), item.getPrice(), 0.0));
         }
