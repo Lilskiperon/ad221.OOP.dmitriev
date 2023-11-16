@@ -1,12 +1,7 @@
 package lab6.carshop.impl;
 
-import lab6.carshop.Interfaces.Accumulator;
-import lab6.carshop.Interfaces.Admin;
-import lab6.carshop.Interfaces.Customer;
-import lab6.carshop.cars.Car;
-import lab6.carshop.cars.Ford;
-import lab6.carshop.cars.Sedan;
-import lab6.carshop.cars.Truck;
+import lab6.carshop.Interfaces.*;
+import lab6.carshop.cars.*;
 
 public class MyOwnAutoShop implements Admin, Customer {
     Car[] cars = new Car[5];
