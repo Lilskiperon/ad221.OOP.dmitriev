@@ -1,6 +1,6 @@
 package lab7;
 
-public class main {
+public class Taks1 {
     enum Season {
         WINTER, SPRING, SUMMER, AUTUMN
     }
